@@ -8,7 +8,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #111424, #050609); color: white; text-align: center; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 8px; }
         
-        /* à¤¸à¥à¤Ÿà¤¾à¤°à¥à¤Ÿà¤¿à¤‚à¤— à¤¸à¥à¤•à¥à¤°à¥€à¤¨ */
+        /* स्टार्टिंग स्क्रीन */
         #startScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111424; z-index: 100; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         
         .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 420px; background: #282a36; border: 1.5px solid #ffcc00; padding: 6px 12px; border-radius: 30px; margin-bottom: 12px; box-shadow: 0 0 10px rgba(255, 204, 0, 0.2); }
@@ -49,29 +49,29 @@
 <body>
 
     <div id="startScreen">
-        <h1 style="color:#ffcc00; font-size:40px; margin-bottom:20px;">ðŸŽ¬ FILMI FILLERS</h1>
+        <h1 style="color:#ffcc00; font-size:40px; margin-bottom:20px;">🎬 FILMI FILLERS</h1>
         <p style="color:white; margin-bottom:30px;">Ek Aisa Puzzle Jo Hai Sabse Hatke!</p>
-        <button onclick="document.getElementById('startScreen').style.display='none'" style="background:#ffcc00; padding:15px 40px; border:none; border-radius:50px; font-size:20px; font-weight:bold; cursor:pointer;">START GAME â–¶ï¸</button>
+        <button onclick="document.getElementById('startScreen').style.display='none'" style="background:#ffcc00; padding:15px 40px; border:none; border-radius:50px; font-size:20px; font-weight:bold; cursor:pointer;">START GAME ▶️</button>
     </div>
 
     <div class="top-bar">
         <div class="profile-side">
-            ðŸ‘¤ <strong id="playerIdentityText">SUDHIR</strong>
-            <button class="edit-mini-btn" onclick="editPlayerName()">âœï¸Edit</button>
+            👤 <strong id="playerIdentityText">SUDHIR</strong>
+            <button class="edit-mini-btn" onclick="editPlayerName()">✏️Edit</button>
         </div>
         <div class="score-side">
-            ðŸ† <span id="pointsDisplay">0</span> PTS
+            🏆 <span id="pointsDisplay">0</span> PTS
         </div>
     </div>
 
     <div class="game-container">
         <div class="win-card" id="winCard">
-            <h2 style="color: #2ed573; font-size: 26px; margin-bottom: 5px;">SUPERB! ðŸŽ‰â¤ï¸</h2>
-            <button class="next-btn" onclick="nextMovie()">NEXT MOVIE ðŸŽ¬</button>
+            <h2 style="color: #2ed573; font-size: 26px; margin-bottom: 5px;">SUPERB! 🎉❤️</h2>
+            <button class="next-btn" onclick="nextMovie()">NEXT MOVIE 🎬</button>
         </div>
 
         <div class="leaderboard-card" id="leaderboardCard">
-            <h2 style="color: #ffcc00; font-size: 22px; margin-bottom: 5px;">ðŸ† ALL INDIA RANKING ðŸ†</h2>
+            <h2 style="color: #ffcc00; font-size: 22px; margin-bottom: 5px;">🏆 ALL INDIA RANKING 🏆</h2>
             <table class="rank-table">
                 <thead><tr><th>Rank</th><th>Player Name</th><th>Points</th></tr></thead>
                 <tbody>
@@ -82,13 +82,13 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="next-btn" style="background:#2ed573; color:white;" onclick="restartGame()">RESTART ðŸ”„</button>
+            <button class="next-btn" style="background:#2ed573; color:white;" onclick="restartGame()">RESTART 🔄</button>
         </div>
 
-        <h1 id="levelDisplay">FILM PUZZLE ðŸŽ¬</h1>
+        <h1 id="levelDisplay">FILM PUZZLE 🎬</h1>
         <div class="controls-row">
-            <button class="audio-toggle" id="musicBtn" onclick="toggleMusic()">ðŸŽµ MUSIC: OFF</button>
-            <button class="hint-btn" onclick="useHint()">ðŸ’¡ HINT (-1500 PTS)</button>
+            <button class="audio-toggle" id="musicBtn" onclick="toggleMusic()">🎵 MUSIC: OFF</button>
+            <button class="hint-btn" onclick="useHint()">💡 HINT (-1500 PTS)</button>
         </div>
         <div class="word-display" id="wordDisplay"></div>
         <div class="keyboard" id="keyboard"></div>
@@ -110,7 +110,7 @@
         function startNewLevel() {
             document.getElementById("winCard").classList.remove("show");
             let currentMovie = movieBank[currentMovieIndex];
-            document.getElementById("levelDisplay").innerText = `MOVIE ${currentMovieIndex + 1}/${movieBank.length} ðŸŽ¬`;
+            document.getElementById("levelDisplay").innerText = `MOVIE ${currentMovieIndex + 1}/${movieBank.length} 🎬`;
             guessedLetters = []; displayMovie(currentMovie); createKeyboard(currentMovie);
         }
 
@@ -147,145 +147,6 @@
             }
         }
         function restartGame() { currentMovieIndex = 0; points = 0; startNewLevel(); document.getElementById("leaderboardCard").classList.remove("show"); }
-        startNewLevel();
-    </script>
-</body>
-</html>
-‹à¤°à¥à¤¡ à¤šà¥‡à¤• à¤•à¤° à¤¸à¤•à¥‡à¤‚)
-        const movieBank = ["SHOLAY", "DANGAL", "BAAHUBALI"];
-        let currentMovieIndex = 0; let currentMovie = ""; let guessedLetters = []; let hintLetters = []; let points = 0; 
-        let playerName = "SUDHIR"; 
-        let playerCity = "SILVASSA";
-
-        function editPlayerName() {
-            let newName = prompt("Apna Naam Likhiye (Name):", playerName);
-            if (newName !== null && newName.trim() !== "") {
-                playerName = newName.trim().toUpperCase();
-                
-                let newCity = prompt("Apne Shahar Ka Naam Likhiye (City):", playerCity);
-                if (newCity !== null && newCity.trim() !== "") {
-                    playerCity = newCity.trim().toUpperCase();
-                }
-                
-                document.getElementById("playerIdentityText").innerText = playerName;
-            }
-        }
-
-        let audioCtx = null; let bgMusicInterval = null; let isMusicOn = false;
-        function initAudio() { if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } }
-        function playTone(freq, type, duration, volume) {
-            try { initAudio(); let osc = audioCtx.createOscillator(); let gain = audioCtx.createGain();
-            osc.type = type; osc.frequency.value = freq; gain.gain.setValueAtTime(volume, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
-            osc.connect(gain); gain.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + duration);
-            } catch(e) {}
-        }
-
-        function toggleMusic() {
-            initAudio(); isMusicOn = !isMusicOn; const btn = document.getElementById("musicBtn");
-            if (isMusicOn) {
-                btn.innerText = "ðŸŽµ MUSIC: ON"; btn.style.background = "#2ed573"; btn.style.color = "white";
-                if (bgMusicInterval) clearInterval(bgMusicInterval);
-                bgMusicInterval = setInterval(() => { if (!isMusicOn) return; playTone(261.63, "triangle", 0.1, 0.03); }, 1500);
-            } else { btn.innerText = "ðŸŽµ MUSIC: OFF"; btn.style.background = "#3a3d52"; btn.style.color = "#ffcc00"; clearInterval(bgMusicInterval); }
-        }
-
-        function startNewLevel() {
-            document.getElementById("winCard").classList.remove("show");
-            currentMovie = movieBank[currentMovieIndex];
-            document.getElementById("levelDisplay").innerText = `MOVIE ${currentMovieIndex + 1}/${movieBank.length} ðŸŽ¬`;
-
-            const uniqueChars = [...new Set(currentMovie.replace(/ /g, ''))];
-            hintLetters = []; const vowels = ["A", "E", "I", "O", "U"];
-            
-            uniqueChars.forEach(char => { if (vowels.includes(char)) hintLetters.push(char); });
-            let index = 0;
-            while (hintLetters.length < Math.ceil(uniqueChars.length / 3) && index < uniqueChars.length) {
-                if (!hintLetters.includes(uniqueChars[index])) hintLetters.push(uniqueChars[index]); index++;
-            }
-            guessedLetters = [...hintLetters]; displayMovie(); createKeyboard();
-        }
-
-        function displayMovie() {
-            const container = document.getElementById("wordDisplay"); container.innerHTML = "";
-            currentMovie.split(" ").forEach(word => {
-                const wordDiv = document.createElement("div"); wordDiv.className = "movie-word";
-                word.split("").forEach(letter => {
-                    const box = document.createElement("div"); box.className = "letter-box";
-                    box.innerText = guessedLetters.includes(letter) ? letter : ""; wordDiv.appendChild(box);
-                });
-                container.appendChild(wordDiv);
-            });
-        }
-
-        function createKeyboard() {
-            const keyboardContainer = document.getElementById("keyboard"); keyboardContainer.innerHTML = "";
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach(letter => {
-                const button = document.createElement("button"); button.className = "key"; button.id = "key-" + letter; button.innerText = letter;
-                if (guessedLetters.includes(letter)) button.classList.add("correct-key", "hidden-key");
-                button.onclick = () => handleKeyPress(letter, button); keyboardContainer.appendChild(button);
-            });
-        }
-
-        function handleKeyPress(letter, button) {
-            initAudio();
-            if (currentMovie.includes(letter)) {
-                button.classList.add("correct-key", "hidden-key"); playTone(523.25, "sine", 0.15, 0.15);
-                guessedLetters.push(letter); points += 1000;
-                document.getElementById("pointsDisplay").innerText = points; displayMovie(); checkWin();
-            } else {
-                button.classList.add("wrong-key", "hidden-key"); playTone(130.81, "sawtooth", 0.25, 0.2);
-                points -= 500; if (points < 0) points = 0; // à¤¸à¥à¤•à¥‹à¤° à¤®à¤¾à¤‡à¤¨à¤¸ à¤®à¥‡à¤‚ à¤œà¤¾à¤¨à¥‡ à¤¸à¥‡ à¤°à¥‹à¤•à¤¾
-                document.getElementById("pointsDisplay").innerText = points;
-            }
-        }
-
-        function useHint() {
-            if (points < 1500) { alert("âŒ Hint ke liye 1500 PTS chahiye!"); return; }
-            const remainingLetters = currentMovie.split("").filter(l => l !== " " && !guessedLetters.includes(l));
-            if (remainingLetters.length > 0) {
-                const randomCorrectLetter = remainingLetters[Math.floor(Math.random() * remainingLetters.length)];
-                points -= 1500; if (points < 0) points = 0;
-                document.getElementById("pointsDisplay").innerText = points;
-                guessedLetters.push(randomCorrectLetter); displayMovie();
-                const btn = document.getElementById("key-" + randomCorrectLetter); 
-                if (btn) btn.classList.add("correct-key", "hidden-key");
-                checkWin();
-            }
-        }
-
-        function checkWin() {
-            const isWon = currentMovie.split("").filter(l => l !== " ").every(l => guessedLetters.includes(l));
-            if (isWon) { document.getElementById("winCard").classList.add("show"); }
-        }
-
-        function nextMovie() {
-            currentMovieIndex++;
-            if (currentMovieIndex < movieBank.length) {
-                startNewLevel();
-            } else {
-                document.getElementById("finalScoreText").innerText = points;
-                document.getElementById("tableMyScore").innerText = points;
-                document.getElementById("tablePlayerName").innerText = playerName;
-                document.getElementById("tablePlayerCity").innerText = "(" + playerCity + ")";
-                
-                let calculatedRank = 94;
-                if (points >= 3000) calculatedRank = 1;
-                else if (points >= 2000) calculatedRank = 2;
-                else calculatedRank = 94;
-                
-                document.getElementById("myLiveRank").innerText = calculatedRank;
-                document.getElementById("leaderboardCard").classList.add("show");
-            }
-        }
-
-        function restartGame() {
-            currentMovieIndex = 0; points = 0;
-            document.getElementById("pointsDisplay").innerText = points;
-            document.getElementById("leaderboardCard").classList.remove("show");
-            startNewLevel();
-        }
-
         startNewLevel();
     </script>
 </body>
