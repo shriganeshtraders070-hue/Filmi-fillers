@@ -2,54 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Filmi Fillers - Final Master Edition</title>
+    <title>Filmi Fillers - Final Working Edition</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #050609; color: white; text-align: center; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 10px; }
+        body { font-family: sans-serif; background: #050609; color: white; text-align: center; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 10px; }
         .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 420px; background: #282a36; border: 1.5px solid #ffcc00; padding: 10px 20px; border-radius: 30px; margin-bottom: 20px; }
         .game-container { background: #1e1f29; padding: 20px; border-radius: 20px; width: 100%; max-width: 420px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
-        .word-display { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 25px 0; min-height: 60px; }
+        .word-display { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 25px 0; min-height: 50px; }
         .letter-box { width: 30px; height: 35px; border-bottom: 3px solid #ffcc00; font-size: 22px; font-weight: bold; display: flex; align-items: center; justify-content: center; text-transform: uppercase; }
         .keyboard { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
-        .key { padding: 8px; background: #282a36; border: 1px solid #3a3d52; color: white; cursor: pointer; border-radius: 5px; font-weight: bold; }
-        .key.correct { background: #2ed573; border-color: #2ed573; }
+        .key { padding: 8px; background: #282a36; border: 1px solid #3a3d52; color: white; cursor: pointer; border-radius: 5px; }
         .win-card { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); flex-direction: column; justify-content: center; align-items: center; z-index: 100; }
         .win-card.show { display: flex; }
-        .next-btn { background: #ffcc00; color: #000; padding: 15px 40px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
-
     <div class="top-bar">
-        <div>👤 <strong id="pName">SUDHIR</strong> <button onclick="editName()" style="background:none; border:none; color:#ffcc00; cursor:pointer;">✏️</button></div>
+        <div id="pName">👤 SUDHIR</div>
         <div id="pScore">🏆 0 PTS</div>
     </div>
-
     <div class="game-container">
         <h2 id="stageTitle" style="color:#ffcc00;">STAGE 1</h2>
-        <div id="instruction" style="color:#a0a5b5; margin-bottom:10px;">Guess the Movie</div>
-        <button onclick="alert('Music toggled!')" style="background:#3a3d52; color:white; border:none; padding:5px 15px; border-radius:5px; margin-bottom:10px;">🎵 Music</button>
+        <div id="instruction" style="color:#a0a5b5;">Guess the Movie</div>
         <div class="word-display" id="wordDisplay"></div>
         <div class="keyboard" id="keyboard"></div>
     </div>
-
     <div class="win-card" id="winCard">
         <h1 style="color:#2ed573;">LEVEL CLEARED! 🎉</h1>
-        <button class="next-btn" onclick="nextLevel()">NEXT LEVEL 🎬</button>
+        <button onclick="nextLevel()" style="padding:15px 30px; cursor:pointer;">NEXT LEVEL 🎬</button>
     </div>
 
     <script>
         const gameData = [
-            { stage: "STAGE 1", prompt: "Guess the Movie", list: ["SHOLAY", "DANGAL", "LAGAAN", "URI", "PK", "GAJINI", "DILWALE", "SULTAN", "KABIRSINGH", "DRISHYAM", "HERA PHERI", "JO JEETA", "AASHIQI", "DON", "SHERSHAAH", "BARFI", "ROCKSTAR", "TAMASHA", "ANDAZ", "KHILADI", "GANGS", "DABANGG", "RA ONE", "BODYGUARD", "READY", "SINGHAM", "CHENNAI", "JAB WE", "LOVE AAJ", "ANAND", "SHREE 420", "GANGUBAI", "RRR", "PUSHPA", "KGF", "BAHUBALI", "KRRISH", "DHOOM", "WAR", "PATHAAN", "JAWAN", "DUNKI", "ANIMAL", "GARDAR", "BORDER", "COOLIE", "KARZ", "TEZAB", "SAUDAGAR", "FAN"] },
-            { stage: "STAGE 2", prompt: "Guess the Hero", list: ["SALMAN", "SHAHRUKH", "AKSHAY", "HRITHIK", "AMIR", "AJAY", "SAIF", "RANBIR", "RANVEER", "VARUN", "SIDHARTH", "KARTIK", "TIGER", "EMRAAN", "SUNIL", "ANIL", "JACKIE", "GOVINDA", "MITHUN", "RAJESH", "DILIP", "AMITABH", "IRRFAN", "NAWAZ", "PANKAJ", "VICKY", "AYUSHMANN", "RAJ", "SHAMMI", "JITENDRA", "DHARMENDRA", "VINOD", "SHASHI", "FEROZ", "SANJAY", "JOHN", "BOBBY", "TUSSHAR", "ABHISHEK", "ARJUN", "IMRAN", "RITEISH", "VISHAL", "KUNAL", "SOHRAB", "KADER", "PREM", "AMRISH", "PARESH", "RANA"] },
-            { stage: "STAGE 3", prompt: "Guess the Heroine", list: ["KAJOL", "DEEPIKA", "ALIA", "KATRINA", "KRITI", "PRIYANKA", "ANUSHKA", "KAREENA", "KARISMA", "RANI", "PREITY", "SUSHMITA", "AISHWARYA", "MADHURI", "SRIDEVI", "JUHI", "TABU", "VIDYA", "KANGANA", "SHRADDHA", "DISHA", "KIARA", "PARINEETI", "SONAKSHI", "SONAM", "HEMA", "ZEENAT", "PARVEEN", "REKHA", "JAYA", "SHARMILA", "MUMTAZ", "ASHA", "VYJAYANTHI", "WAHEEDA", "NARGIS", "MEENA", "MADHU", "BIPASHA", "LARA", "DIA", "NEHA", "AMRITA", "GENELIA", "ASMA", "RAVEENA", "SHILPA", "MALAIKA", "URMILA", "TWINKLE"] },
-            { stage: "STAGE 4", prompt: "Guess Movie for Song", list: ["CHAIYYA", "TUMHI", "KABIRA", "DESI", "KARMA", "TUMSE", "MAHI", "BANJAARA", "ZINDAGI", "MASTI", "DILSE", "SALAAR", "JAWAN", "OM SHANTI", "KABHI", "KAL HO", "DIL TO", "MUJHSE", "DHOOM", "BAAZIGAR", "DARR", "KHILAF", "RANG DE", "TAARE", "3 IDIOTS", "PK", "DANGAL", "BARFI", "YEH JAWAANI", "ROCKSTAR", "TAMASHA", "DIL CHAHTA", "BAJIRAO", "PADMAVAT", "RAM LEELA", "GULLY BOY", "URI", "SHERSHAAH", "RAAZ", "ASHIQI", "DIL", "KING", "DON", "DABANGG", "READY", "BODYGUARD", "SINGHAM", "SULTAN", "JAB WE", "ANAND"] },
-            { stage: "STAGE 5", prompt: "Ultimate Challenge", list: ["ZINDAGI", "MASTI", "DILSE", "SALAAR", "JAWAN", "DUNKI", "ANIMAL", "GARDAR", "BORDER", "COOLIE", "KARZ", "TEZAB", "SAUDAGAR", "SHOLAY", "DANGAL", "LAGAAN", "URI", "PK", "GAJINI", "DILWALE", "SULTAN", "KABIRSINGH", "DRISHYAM", "HERA PHERI", "JO JEETA", "AASHIQI", "DON", "SHERSHAAH", "BARFI", "ROCKSTAR", "TAMASHA", "ANDAZ", "KHILADI", "GANGS", "DABANGG", "RA ONE", "BODYGUARD", "READY", "SINGHAM", "CHENNAI", "JAB WE", "LOVE AAJ", "ANAND", "SHREE 420", "GANGUBAI", "RRR", "PUSHPA", "KGF", "BAHUBALI", "FAN"] }
+            { stage: "STAGE 1", prompt: "Guess the Movie", list: ["SHOLAY", "DANGAL", "LAGAAN"] },
+            { stage: "STAGE 2", prompt: "Guess the Hero", list: ["SALMAN", "SHAHRUKH", "AKSHAY"] },
+            { stage: "STAGE 3", prompt: "Guess the Heroine", list: ["KAJOL", "DEEPIKA", "ALIA"] }
         ];
 
         let sIdx = 0, iIdx = 0, points = 0, guessed = [];
-
-        function editName() { let n = prompt("Enter Name:", document.getElementById("pName").innerText); if(n) document.getElementById("pName").innerText = n; }
 
         function render() {
             let target = gameData[sIdx].list[iIdx];
@@ -68,8 +58,7 @@
                 b.onclick = () => {
                     if(!guessed.includes(l)) {
                         guessed.push(l);
-                        if(target.includes(l)) { points += 100; b.classList.add("correct"); }
-                        else { points = Math.max(0, points - 50); }
+                        if(target.includes(l)) points += 100;
                         document.getElementById("pScore").innerText = `🏆 ${points} PTS`;
                         render();
                         if(target.split("").every(x => guessed.includes(x))) document.getElementById("winCard").classList.add("show");
@@ -82,8 +71,9 @@
         function nextLevel() {
             iIdx++;
             if(iIdx >= gameData[sIdx].list.length) { sIdx++; iIdx = 0; }
-            if(sIdx < gameData.length) { document.getElementById("winCard").classList.remove("show"); guessed = []; render(); }
-            else { alert("Congratulations! All Levels Finished!"); }
+            guessed = []; 
+            document.getElementById("winCard").classList.remove("show");
+            render();
         }
 
         render();
